@@ -34,7 +34,7 @@ class _DetailPageState extends State<DetailPage> {
       }
     }
 
-    Future<void> handleBook() async {
+    Future<void> handleBook(Space space) async {
       return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -61,6 +61,7 @@ class _DetailPageState extends State<DetailPage> {
                 child: Text('Hubungi'),
                 onPressed: () {
                   Navigator.of(context).pop();
+                  launchUrl('tel:${space.phone}');
                 },
               ),
             ],
@@ -284,7 +285,7 @@ class _DetailPageState extends State<DetailPage> {
                         width: MediaQuery.of(context).size.width - (2 * edge),
                         child: FlatButton(
                           onPressed: () {
-                            handleBook();
+                            handleBook(widget.space);
                           },
                           color: purpleColor,
                           shape: RoundedRectangleBorder(
@@ -333,17 +334,11 @@ class _DetailPageState extends State<DetailPage> {
                         isFavorite = !isFavorite;
                       });
                     },
-                    child: Container(
+                    child: Image.asset(
+                      isFavorite
+                          ? 'assets/btn_wishlist_active.png'
+                          : 'assets/btn_wishlist.png',
                       width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: whiteColor,
-                      ),
-                      child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_outline,
-                        color: purpleColor,
-                      ),
                     ),
                   ),
                 ],
