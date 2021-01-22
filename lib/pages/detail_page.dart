@@ -34,6 +34,41 @@ class _DetailPageState extends State<DetailPage> {
       }
     }
 
+    Future<void> handleBook() async {
+      return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Konfirmasi'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Apakah kamu ingin menghubungi pemilik kos?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(
+                  'Nanti',
+                  style: greyTextStyle,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('Hubungi'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       backgroundColor: whiteColor,
       body: SafeArea(
@@ -249,7 +284,7 @@ class _DetailPageState extends State<DetailPage> {
                         width: MediaQuery.of(context).size.width - (2 * edge),
                         child: FlatButton(
                           onPressed: () {
-                            launchUrl('tel:${widget.space.phone}');
+                            handleBook();
                           },
                           color: purpleColor,
                           shape: RoundedRectangleBorder(
